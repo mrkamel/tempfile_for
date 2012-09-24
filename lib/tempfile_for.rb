@@ -13,7 +13,7 @@ class Tempfile
       tempfile.flush
       tempfile.rewind
 
-      return tempfile.read
+      return File.read(tempfile.path)
     end 
   end 
 end
