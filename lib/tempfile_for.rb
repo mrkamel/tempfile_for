@@ -11,7 +11,6 @@ class Tempfile
       yield tempfile
 
       tempfile.flush
-      tempfile.rewind
 
       return File.read(tempfile.path)
     end 
