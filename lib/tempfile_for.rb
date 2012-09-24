@@ -4,7 +4,9 @@ require "tempfile"
 
 class Tempfile
   def self.for(data)
-    open("tempfile") do |tempfile|
+    tempfile = open("tempfile")
+
+    begin
       tempfile.write data
       tempfile.flush
 
@@ -12,8 +14,10 @@ class Tempfile
 
       tempfile.flush
 
-      return File.read(tempfile.path)
-    end 
-  end 
+      File.read(tempfile.path)
+    ensure
+      tempfile.close!
+    end
+  end
 end
 
