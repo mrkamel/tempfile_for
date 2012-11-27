@@ -17,6 +17,12 @@ And then execute:
 $ bundle
 ```
 
+Alternatively, you can of course install it without using bundler via:
+
+```
+$ gem install tempfile_for
+```
+
 ## Usage
 
 TempfileFor is a very tiny gem, with only a few lines of code.
