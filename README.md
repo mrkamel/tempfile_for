@@ -7,11 +7,15 @@ Easily create temporary files for in-memory data, modify the file, and get the f
 
 Add this line to your application's Gemfile:
 
-    gem "tempfile_for"
+```
+gem "tempfile_for"
+```
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 ## Usage
 
@@ -20,10 +24,10 @@ However, it can save you lines of ugly code.
 
 To get a quick introduction into what TempfileFor does, check this out:
 
-<pre>
+```ruby
 Tempfile.for("string1") { |tempfile| `echo -n ', string2' >> #{tempfile.path}` }
-=> "string1, string2"
-</pre>
+# => "string1, string2"
+```
 
 Say, you have some in-memory data, like an image you fetch from an URL - and you want to somehow modify it partially
 like e.g., add or remove IPTC tags, or scale it, etc. Often, the gems used to modify images or other media files
@@ -31,15 +35,14 @@ require a path to the file to be able to modify it.
 
 This is easy thanks to TempfileFor:
 
-<pre>
-
+```ruby
 data = RestClient.get("http://example.com/image.jpg")
 
 image = Tempfile.for(data) do |tempfile|
   # Modify the tempfile and get the modified content returned.
   # Tempfile takes care about flushing the file's modifications and rewinding, etc.
 end
-</pre>
+```
 
 ## Contributing
 
