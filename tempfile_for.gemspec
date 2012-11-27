@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["vetter@flakks.com"]
   s.summary     = %q{Create temporary files for in-memory data}
   s.description = %q{Create temporary files for in-memory data}
+  s.homepage    = "https://github.com/mrkamel/tempfile_for"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

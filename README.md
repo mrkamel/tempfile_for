@@ -1,3 +1,4 @@
+
 # TempfileFor
 
 Easily create temporary files for in-memory data, modify the file, and get the full content returned.
@@ -6,7 +7,7 @@ Easily create temporary files for in-memory data, modify the file, and get the f
 
 Add this line to your application's Gemfile:
 
-    gem "tempfile_for", :git => "https://github.com/mrkamel/tempfile_for.git"
+    gem "tempfile_for"
 
 And then execute:
 
@@ -47,3 +48,4 @@ end
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
