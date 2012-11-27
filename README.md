@@ -45,7 +45,7 @@ This is easy thanks to TempfileFor:
 data = RestClient.get("http://example.com/image.jpg")
 
 image = Tempfile.for(data) do |tempfile|
-  # Modify the tempfile and get the modified content returned.
+  # Modify the tempfile directly or using tempfile.path and get the modified content returned.
   # Tempfile takes care about flushing the file's modifications and rewinding, etc.
 end
 ```
