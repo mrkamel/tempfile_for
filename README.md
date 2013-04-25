@@ -25,6 +25,8 @@ $ gem install tempfile_for
 
 ## Usage
 
+### for
+
 TempfileFor is a very tiny gem, with only a few lines of code.
 However, it can save you lines of ugly code.
 
@@ -49,6 +51,31 @@ image = Tempfile.for(data) do |tempfile|
   # Tempfile takes care about flushing the file's modifications and rewinding, etc.
 end
 ```
+
+### blank
+
+If you want to use TempfileFor without initial data, simply use:
+
+```ruby
+Tempfile.blank { |tempfile| `echo -n data >> #{tempfile.path}` }
+```
+
+## Encoding
+
+If you're using ruby 1.9+, TempfileFor preserves the encoding of the supplied data. Thus, the following code
+
+```ruby
+Tempfile.for("string1".encode(Encoding::ISO_8859_1)) { ... }
+```
+
+will return a string encoded as ISO-8859-1. If you use the blank method, you
+can supply the desired encoding, such that
+
+```ruby
+Tempfile.blank(:encoding => Encoding::BINARY) { ... }
+```
+
+will return a string encoded as binary.
 
 ## Contributing
 
