@@ -42,6 +42,8 @@ class Tempfile
     begin
       yield tempfile
 
+      tempfile.flush
+
       if RUBY_VERSION < "1.9" || options[:encoding].nil?
         File.read tempfile.path
       else
