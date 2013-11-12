@@ -3,6 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "tempfile_for/version"
 
 Gem::Specification.new do |s|
+  s.license     = "MIT"
   s.name        = "tempfile_for"
   s.version     = TempfileFor::VERSION
   s.authors     = ["Benjamin Vetter"]
