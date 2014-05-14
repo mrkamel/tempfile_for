@@ -8,9 +8,7 @@ module TempfileFor
 
       tempfile = self.class.open("tempfile", :encoding => encoding)
 
-      File.open path, :encoding => encoding do |stream|
-        tempfile.write_ext stream
-      end
+      File.open(path, :encoding => encoding) { |stream| tempfile.write_ext stream }
 
       tempfile.rewind
       tempfile
@@ -18,7 +16,9 @@ module TempfileFor
 
     def write_ext(io_or_data)
       if io_or_data.respond_to?(:read)
-        write(io_or_data.read(1024)) until io_or_data.eof?
+        while data = io_or_data.read(1024)
+          write data
+        end
       else
         write io_or_data
       end
