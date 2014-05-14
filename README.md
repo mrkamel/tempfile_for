@@ -28,8 +28,7 @@ $ gem install tempfile_for
 
 ### for
 
-TempfileFor is a very tiny gem, with only a few lines of code.
-However, it can save you lines of ugly code.
+TempfileFor is a very tiny gem, but it can save you lines of ugly code.
 
 To get a quick introduction into what TempfileFor does, check this out:
 

@@ -1,8 +1,5 @@
 
-require File.expand_path("../../lib/tempfile_for", __FILE__)
-
-require "minitest"
-require "minitest/autorun"
+require File.expand_path("../test_helper", __FILE__)
 
 class TempfileForTest < Minitest::Test
   def test_tempfile_for

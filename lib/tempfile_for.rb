@@ -1,28 +1,30 @@
 
 require "tempfile_for/version"
+require "tempfile_for/tempfile"
 require "tempfile"
 
 class Tempfile
-  def self.for(data, options = {})
-    blank :encoding => data.encoding, :read => options[:read] do |tempfile|
-      tempfile.write data
+  def self.for(io_or_data, options = {})
+    blank options.merge(:encoding => options[:encoding] || io_or_data.encoding) do |tempfile|
+      tempfile.write_ext io_or_data
       tempfile.flush
 
-      yield tempfile
+      yield tempfile if block_given?
     end
-  end
+  end 
 
   def self.blank(options = {})
-    tempfile = open("tempfile", :encoding => options[:encoding])
+    encoding = options[:encoding]
 
-    yield tempfile
+    tempfile = TempfileFor::Tempfile.open("tempfile", :encoding => encoding)
+
+    yield tempfile if block_given?
 
     tempfile.flush
-    tempfile.rewind
 
-    options[:read] != false ? tempfile.read : tempfile
+    options[:read] != false ? File.read(tempfile.path, :encoding => encoding) : tempfile.copy(:encoding => encoding)
   ensure
-    tempfile.close! if options[:read] != false
+    tempfile.close!
   end
 end
 
