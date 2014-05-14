@@ -1,7 +1,8 @@
 
 # TempfileFor
 
-Easily create temporary files for in-memory data, modify the file, and get the full content returned.
+Easily create temporary files for in-memory data, modify the file, and get the
+full content returned.
 
 ## Installation
 
@@ -37,8 +38,9 @@ Tempfile.for("string1") { |tempfile| `echo -n ', string2' >> #{tempfile.path}` }
 # => "string1, string2"
 ```
 
-Say, you have some in-memory data, like an image you fetch from an URL - and you want to somehow modify it partially
-like e.g., add or remove IPTC tags, or scale it, etc. Often, the gems used to modify images or other media files
+Say, you have some in-memory data, like an image you fetch from an URL - and
+you want to somehow modify it partially like e.g., add or remove IPTC tags, or
+scale it, etc. Often, the gems used to modify images or other media files
 require a path to the file to be able to modify it.
 
 This is easy thanks to TempfileFor:
@@ -60,16 +62,28 @@ If you want to use TempfileFor without initial data, simply use:
 Tempfile.blank { |tempfile| `echo -n data >> #{tempfile.path}` }
 ```
 
+### Tempfile object
+
+In case you need the tempfile object itself, because you e.g. don't want to
+load it into memory, add `:read => false` to either `Tempfile#for` or
+`Tempfile#blank`
+
+```ruby
+Tempfile.for("string", :read => false) { |tempfile| ... } # => #<File:/tmp/tempfile...>
+Tempfile.blank(:read => false) { |tempfile| ... } # => #<File:/tmp/tempfile...>
+```
+
 ## Encoding
 
-If you're using ruby 1.9+, TempfileFor preserves the encoding of the supplied data. Thus, the following code
+TempfileFor preserves the encoding of the supplied data. Thus, the following
+code
 
 ```ruby
 Tempfile.for("string1".encode(Encoding::ISO_8859_1)) { ... }
 ```
 
 will return a string encoded as ISO-8859-1. If you use the blank method, you
-can supply the desired encoding, such that
+can supply the desired encoding via
 
 ```ruby
 Tempfile.blank(:encoding => Encoding::BINARY) { ... }

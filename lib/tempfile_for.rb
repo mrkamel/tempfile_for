@@ -3,55 +3,26 @@ require "tempfile_for/version"
 require "tempfile"
 
 class Tempfile
-  def self.for(data)
-    tempfile = nil
-
-    if RUBY_VERSION < "1.9"
-      tempfile = open("tempfile")
-    else
-      tempfile = open("tempfile", :encoding => data.encoding)
-    end
-
-    begin
+  def self.for(data, options = {})
+    blank :encoding => data.encoding, :read => options[:read] do |tempfile|
       tempfile.write data
       tempfile.flush
 
       yield tempfile
-
-      tempfile.flush
-
-      if RUBY_VERSION < "1.9"
-        File.read tempfile.path
-      else
-        File.read tempfile.path, :encoding => data.encoding
-      end
-    ensure
-      tempfile.close!
     end
   end
 
   def self.blank(options = {})
-    tempfile = nil
+    tempfile = open("tempfile", :encoding => options[:encoding])
 
-    if RUBY_VERSION < "1.9" || options[:encoding].nil?
-      tempfile = open("tempfile")
-    else
-      tempfile = open("tempfile", :encoding => options[:encoding])
-    end
+    yield tempfile
 
-    begin
-      yield tempfile
+    tempfile.flush
+    tempfile.rewind
 
-      tempfile.flush
-
-      if RUBY_VERSION < "1.9" || options[:encoding].nil?
-        File.read tempfile.path
-      else
-        File.read tempfile.path, :encoding => options[:encoding]
-      end
-    ensure
-      tempfile.close!
-    end
+    options[:read] != false ? tempfile.read : tempfile
+  ensure
+    tempfile.close! if options[:read] != false
   end
 end
 
