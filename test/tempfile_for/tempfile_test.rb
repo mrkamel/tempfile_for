@@ -27,5 +27,13 @@ class TempfileFor::TemfileTest < Minitest::Test
 
     assert_equal "test", tempfile.read
   end
+
+  def test_build
+    assert Dir["/tmp/*.jpg"].empty?
+
+    assert_equal Encoding::ISO_8859_1, TempfileFor::Tempfile.build(:suffix => ".jpg", :encoding => Encoding::ISO_8859_1).external_encoding
+
+    refute Dir["/tmp/*.jpg"].empty?
+  end
 end
 

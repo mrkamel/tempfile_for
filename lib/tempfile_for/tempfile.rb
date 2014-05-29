@@ -3,12 +3,14 @@ require "tempfile"
 
 module TempfileFor
   class Tempfile < ::Tempfile
+    def self.build(options = {})
+      open options[:suffix] ? ["tempfile", options[:suffix]] : "tempfile", :encoding => options[:encoding]
+    end
+
     def copy(options = {})
-      encoding = options[:encoding]
+      tempfile = self.class.build(options)
 
-      tempfile = self.class.open("tempfile", :encoding => encoding)
-
-      File.open(path, :encoding => encoding) { |stream| tempfile.write_ext stream }
+      File.open(path, :encoding => options[:encoding]) { |stream| tempfile.write_ext stream }
 
       tempfile.rewind
       tempfile

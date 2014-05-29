@@ -1,4 +1,8 @@
 
+[![Build Status](https://secure.travis-ci.org/mrkamel/tempfile_for.png?branch=master)](http://travis-ci.org/mrkamel/tempfile_for)
+[![Code Climate](https://codeclimate.com/github/mrkamel/tempfile_for.png)](https://codeclimate.com/github/mrkamel/tempfile_for)
+[![Dependency Status](https://gemnasium.com/mrkamel/tempfile_for.png?travis)](https://gemnasium.com/mrkamel/tempfile_for)
+
 # TempfileFor
 
 Easily create temporary files for in-memory data, modify the file, and get the
@@ -89,6 +93,17 @@ Tempfile.blank(:encoding => Encoding::BINARY) { ... }
 ```
 
 will return a string encoded as binary.
+
+## Suffix
+
+You can pass a `:suffix => "..."` option to all methods, such that
+
+```ruby
+Tempfile.for("data", :suffix => ".jpg")
+Tempfile.blank(:suffix => ".jpg") { ... }
+```
+
+will create tempfiles having a `.jpg` suffix.
 
 ## Contributing
 

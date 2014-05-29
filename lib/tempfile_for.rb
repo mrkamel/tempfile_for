@@ -14,15 +14,13 @@ class Tempfile
   end 
 
   def self.blank(options = {})
-    encoding = options[:encoding]
-
-    tempfile = TempfileFor::Tempfile.open("tempfile", :encoding => encoding)
+    tempfile = TempfileFor::Tempfile.build(options)
 
     yield tempfile if block_given?
 
     tempfile.flush
 
-    options[:read] != false ? File.read(tempfile.path, :encoding => encoding) : tempfile.copy(:encoding => encoding)
+    options[:read] != false ? File.read(tempfile.path, :encoding => options[:encoding]) : tempfile.copy(options)
   ensure
     tempfile.close!
   end
